@@ -36,8 +36,7 @@ export class TasksController {
     @Param('taskId') taskId: string,
     @Body() updateDto: UpdateTaskStatusDto,
   ): Task {
-    updateDto.id = taskId;
-    return this.tasksService.updateStatus(updateDto);
+    return this.tasksService.updateStatus(taskId, updateDto);
   }
 
   @Delete('/:taskId')
