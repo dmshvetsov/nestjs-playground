@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TasksModule } from './tasks/tasks.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 const ormModule = TypeOrmModule.forRoot({
   type: 'postgres',
@@ -14,6 +15,6 @@ const ormModule = TypeOrmModule.forRoot({
 });
 
 @Module({
-  imports: [ormModule, TasksModule],
+  imports: [ormModule, TasksModule, AuthModule],
 })
 export class AppModule {}
