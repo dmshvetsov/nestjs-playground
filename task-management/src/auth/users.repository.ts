@@ -8,4 +8,8 @@ export class UsersRepository extends Repository<User> {
     const user = this.create(credentials);
     return this.save<User>(user);
   }
+
+  findByUsername(username: string) {
+    return this.findOne({ where: { username } });
+  }
 }
