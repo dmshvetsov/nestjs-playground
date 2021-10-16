@@ -10,8 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { GetCurrentUser } from 'src/auth/decorators/get-user.decorator';
-import { User } from 'src/auth/user.entity';
+import { GetCurrentUser } from '../auth/decorators/get-user.decorator';
+import { User } from '../auth/user.entity';
 import { CreateTaskDto, GetTasksFilterDto, UpdateTaskStatusDto } from './dto';
 import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
