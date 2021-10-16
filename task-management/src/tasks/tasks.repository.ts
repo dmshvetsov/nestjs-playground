@@ -21,6 +21,10 @@ export class TasksRepository extends Repository<Task> {
     return qb.getMany();
   }
 
+  findOneForUser(userId: string, taskId: string) {
+    return this.findOneOrFail({ userId, id: taskId });
+  }
+
   saveOpen(params: Partial<Task>): Promise<Task> {
     const task = this.create({
       ...params,

@@ -13,8 +13,8 @@ export class TasksService {
     return this.tasksRepository.findForUser(user.id, filter);
   }
 
-  getById(taskId: string): Promise<Task> {
-    return this.tasksRepository.findOneOrFail(taskId);
+  getUserTask(user: User, taskId: string): Promise<Task> {
+    return this.tasksRepository.findOneForUser(user.id, taskId);
   }
 
   createForUser(user: User, createDto: CreateTaskDto): Promise<Task> {
@@ -25,17 +25,18 @@ export class TasksService {
   }
 
   async updateStatus(
+    user,
     taskId: string,
     updateDto: UpdateTaskStatusDto,
   ): Promise<Task> {
-    const taskToUpdate = await this.getById(taskId);
+    const taskToUpdate = await this.getUserTask(user.id, taskId);
     taskToUpdate.status = updateDto.status;
     await this.tasksRepository.save(taskToUpdate);
     return taskToUpdate;
   }
 
-  async delete(taskId: string): Promise<Task> {
-    const taskToDelete = await this.getById(taskId);
+  async delete(user: User, taskId: string): Promise<Task> {
+    const taskToDelete = await this.getUserTask(user, taskId);
     return this.tasksRepository.remove(taskToDelete);
   }
 }
