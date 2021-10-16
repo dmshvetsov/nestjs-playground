@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/auth/user.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TaskStatus } from './task';
 
 @Entity()
@@ -14,4 +15,11 @@ export class Task {
 
   @Column()
   status: TaskStatus;
+
+  /**
+   * Associations
+   */
+
+  @OneToMany(() => User, (user) => user.tasks, { eager: true })
+  user: User;
 }
