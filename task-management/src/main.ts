@@ -1,4 +1,5 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpServerErrorHandling } from './http-server-error-handling.filter';
@@ -17,6 +18,10 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new TransformInterceptor());
 
-  await app.listen(8080);
+  const configService = app.get(ConfigService);
+  await app.listen(configService.get('APP_PORT'));
+  Logger.verbose(
+    `Application server is listening on port ${configService.get('APP_PORT')}`,
+  );
 }
 bootstrap();

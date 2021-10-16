@@ -1,5 +1,5 @@
-import { Expose } from 'class-transformer';
-import { IsEnum, IsString } from 'class-validator';
+import { Expose, Type } from 'class-transformer';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
 
 export enum Environment {
   development = 'development',
@@ -12,6 +12,11 @@ export class Config {
   @IsEnum(Environment)
   @Expose({ name: 'NODE_ENV' })
   ENV: Environment;
+
+  @IsNumber()
+  @Expose()
+  @Type(() => Number)
+  APP_PORT: number;
 
   @IsString()
   @Expose()
