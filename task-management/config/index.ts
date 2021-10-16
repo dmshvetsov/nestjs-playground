@@ -16,4 +16,8 @@ export class Config {
   @IsString()
   @Expose()
   DB_CONNECTION: string;
+
+  @IsString()
+  @Expose()
+  JWT_SECRET: string;
 }
