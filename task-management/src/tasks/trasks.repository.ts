@@ -5,8 +5,10 @@ import { Task } from './task.entity';
 
 @EntityRepository(Task)
 export class TasksRepository extends Repository<Task> {
-  findList(filter: GetTasksFilterDto) {
+  findForUser(userId: string, filter: GetTasksFilterDto) {
     const qb = this.createQueryBuilder('tasks');
+    qb.where({ userId });
+
     if (filter.status) {
       qb.andWhere('tasks.status = :status', { status: filter.status });
     }
@@ -15,7 +17,8 @@ export class TasksRepository extends Repository<Task> {
         q: `%${filter.q}%`,
       });
     }
-    return qb.execute();
+
+    return qb.getMany();
   }
 
   saveOpen(params: Partial<Task>): Promise<Task> {

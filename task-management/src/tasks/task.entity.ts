@@ -17,6 +17,9 @@ export class Task {
   @Column()
   status: TaskStatus;
 
+  @Column()
+  userId: string;
+
   /**
    * Associations
    */
